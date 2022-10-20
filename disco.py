@@ -3,7 +3,7 @@ class Disco():
     def __init__(self):
         self.numdiscos = 0
         self.comecar = False
-        self.mover'' = 0
+        self.mover = 0
         self.torre1 = []
         self.torre2 = []
         self.torre3 = []
