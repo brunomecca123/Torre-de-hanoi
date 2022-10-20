@@ -5,79 +5,79 @@ disco = Disco()
 
 class torre():
     pass
-ndiscos = 0
-iniciarjogo = False
-movimentos = 0
-torreA = []
-torreB = []
-torreC = []
+numdiscos = 0
+comecar = False
+mover = 0
+torre1 = []
+torre2 = []
+torre3 = []
 
 
 def quantDisco():
-    global iniciarjogo
-    global ndiscos
-    ndiscos = 0
-    while (iniciarjogo == False):
-        ctrl = input("\nInforme qual a quantidade de disco: ")
+    global comecar
+    global numdiscos
+    numdiscos = 0
+    while (comecar == False):
+        controle = input("\nInforme qual a quantidade de disco: ")
         for i in range(100):
-            if ctrl == i.__str__():
-                ndiscos = ctrl
+            if controle == i.__str__():
+                numdiscos = controle
 
-        if ndiscos != "" and int(ndiscos) >= 3:
-            iniciarjogo = True
+        if numdiscos != "" and int(numdiscos) >= 3:
+            comecar = True
         else:
-            print("|------>   A quantidade minima de disco para iniciar o jogo deve ser >= 7 disco.")
+            print(" A quantidade minima de disco para iniciar o jogo deve ser 3 ou mais discos.")
 
 
 def init():
-    for i in range(0, int(ndiscos)):
-        torreA.append(int(ndiscos) - i)
+    for i in range(0, int(numdiscos)):
+        torre1.append(int(numdiscos) - i)
     return True
 
 
 def printTorre(arrayTorre, torre):
-    print('{:>{}}'.format("\nTorre ", (ndiscos)) + torre)
+    print('{:>{}}'.format("\nTorre ", (numdiscos)) + torre)
     for n in reversed(arrayTorre):
-        pino = ""
+        desenhartorre = ""
         for i in range(n):
-            pino += "#"
-        print('{:>{}}'.format(pino, ndiscos) + '{:<{}}'.format(pino, ndiscos))
+            desenhartorre += "#"
+        print('{:>{}}'.format(desenhartorre, numdiscos) + '{:<{}}'.format(desenhartorre, numdiscos))
 
 
 def verificarMovimento(str):
     strView = ""
-    if str == "a" or str == "A":
-        strView = "B ou C"
-    elif (str == "b" or str == "B"):
-        strView = "A ou C"
-    elif (str == "c" or str == "C"):
-        strView = "A ou B"
+    if str == "1":
+        strView = "2 ou 3"
+    elif (str == "2"):
+        strView = "1 ou 3"
+    elif (str == "3"):
+        strView = "1 ou 2"
     return strView
 
 
 def movimentar(torre, operacao, valorMove):
     movimento = ""
 
-    if (torre == "a" or torre == "A") and operacao == 1:
-        if validaAlocacao(torreA, operacao, valorMove):
-            movimento = torreA.pop()
-    elif (torre == "b" or torre == "B") and operacao == 1:
-        if validaAlocacao(torreB, operacao, valorMove):
-            movimento = torreB.pop()
-    elif (torre == "c" or torre == "C") and operacao == 1:
-        if validaAlocacao(torreC, operacao, valorMove):
-            movimento = torreC.pop()
-    elif (torre == "a" or torre == "A") and operacao == 2:
-        if validaAlocacao(torreA, operacao, valorMove):
-            torreA.append(valorMove)
+    if (torre == "1" ) and operacao == 1:
+        if validaAlocacao(torre1, operacao, valorMove):
+            movimento = torre1.pop()
+    elif (torre == "2") and operacao == 1:
+        if validaAlocacao(torre2, operacao, valorMove):
+            movimento = torre2.pop()
+    elif (torre == "3") and operacao == 1:
+        if validaAlocacao(torre3, operacao, valorMove):
+            movimento = torre3.pop()
+    elif (torre == "1") and operacao == 2:
+        if validaAlocacao(torre1, operacao, valorMove):
+            torre1.append(valorMove)
             movimento = valorMove
-    elif (torre == "b" or torre == "B") and operacao == 2:
-        if validaAlocacao(torreB, operacao, valorMove):
-            torreB.append(valorMove)
+    elif (torre == "2") and operacao == 2:
+        if validaAlocacao(torre2, operacao, valorMove):
+            torre2.append(valorMove)
             movimento = valorMove
-    elif (torre == "c" or "torre" == "C") and operacao == 2:
-        if validaAlocacao(torreC, operacao, valorMove):
-            torreC.append(valorMove)
+    elif (torre == "3") and operacao == 2:
+        if validaAlocacao(torre3, operacao, valorMove):
+            torre3.append(valorMove)
             movimento = valorMove
     return movimento
 
@@ -87,67 +87,67 @@ def inputValue():
     movSaida = ""
     entrada = ""
     movEntrada = ""
-    ctrl = False
-    reset = False
+    controle = False
+    reiniciar = False
     novaPartida = False
 
     while saida == "":
 
-        if movSaida == "" and ctrl != False:
-            print("A Torre informada esta errada, por favor informe uma torre valida.")
-            ctrl = False
+        if movSaida == "" and controle != False:
+            print("Torre incorreta, digite novamente.")
+            controle = False
         else:
-            print("\nPara resetar a jogada digite [ reset ] ")
+            print("\nPara reiniciar a jogada digite [ reiniciar ] ")
             print("Para iniciar novamente a partida digite [ iniciar ] ")
-            print("Para imprimir o resultado anterior digite [ print ]\n")
+            print("Para exibir o resultado anterior digite [ exibir ]\n")
             saida = input("Informe a Torre de Saida: ")
 
-            if saida == "reset":
-                reset = True
-            elif saida == "print":
+            if saida == "reiniciar":
+                reiniciar = True
+            elif saida == "exibir":
                 printResult()
-                reset = True
+                reiniciar = True
             elif saida == "iniciar":
                 novaPartida = True
             else:
                 movSaida = verificarMovimento(saida)
-                ctrl = True
+                controle = True
 
-        if not reset and not novaPartida:
+        if not reiniciar and not novaPartida:
             saida = movimentar(saida, 1, "")
 
-    ctrl = False
+    controle = False
 
-    while entrada == "" and (not reset and not novaPartida):
+    while entrada == "" and (not reiniciar and not novaPartida):
 
-        if movEntrada == "" and ctrl != False:
+        if movEntrada == "" and controle != False:
             print("A Torre informada esta errada, por favor informe uma torre valida.")
-            ctrl = False
+            controle = False
         else:
             entrada = input("Informe a Torre de Entrada " + movSaida + ": ")
 
-            if entrada == "reset":
-                reset = True
-            elif entrada == "print":
+            if entrada == "reiniciar":
+                reiniciar = True
+            elif entrada == "exibir":
                 printResult()
-                reset = True
+                reiniciar = True
             elif entrada == "iniciar":
                 novaPartida = True
             else:
                 movEntrada = verificarMovimento(entrada)
 
                 if movSaida == movEntrada:
-                    print("Essa joganda não é valida. Você deve muda sua jogada.")
-                    ctrl = False
+                    print("Esse movimento é inválido. Tente outro movimento.")
+                    controle = False
                 else:
-                    ctrl = True
+                    controle = True
 
-        if ctrl:
+        if controle:
             entrada = movimentar(entrada, 2, saida)
         else:
             entrada = ""
 
-    if reset:
+    if reiniciar:
         inputValue()
     elif novaPartida:
         iniciar()
@@ -157,13 +157,13 @@ def validaAlocacao(torre, operacao, valorMove):
     length = torre.__len__()
 
     if length == 0 and operacao == 1:
-        print("Esta torre esta vazia. Você deve muda sua jogada.")
+        print("Esta torre esta vazia. Mude sua jogada.")
         return False
     elif length > 0 and operacao == 2:
         if valorMove < torre[length - 1]:
             return True
         else:
-            print("Os ultimo disco que esta na torre è menor que o disco [", valorMove, "]. Você deve muda sua jogada.")
+            print("O ultimo disco que esta na torre è menor que o disco [", valorMove, "]. Mude sua jogada!")
             return False
     else:
         return True
@@ -172,31 +172,31 @@ def validaAlocacao(torre, operacao, valorMove):
 def validaResultado():
     vencedor = False
 
-    if int(torreA.__len__()) == 0 and int(torreB.__len__()) == 0 and int(torreC.__len__()) == int(ndiscos):
+    if int(torre1.__len__()) == 0 and int(torre2.__len__()) == 0 and int(torre3.__len__()) == int(numdiscos):
         vencedor = True
-    elif int(torreA.__len__()) == 0 and int(torreB.__len__()) == int(ndiscos) and int(torreC.__len__()) == 0:
+    elif int(torre1.__len__()) == 0 and int(torre2.__len__()) == int(numdiscos) and int(torre3.__len__()) == 0:
         vencedor = True
 
     return vencedor
 
 
 def fimJogo():
-    print("PARABÉNS, VOCÊ GANHOU...\nAgora o que voce acha de aumentar o desafio.\n")
+    print("Fim de jogo!")
 
-    if input("Para uma nova partida digite [ iniciar ]: ") == "iniciar":
+    if input("Para uma nova partida digite [ iniciar ], se quiser digite qualquer tecla!:  ") == "iniciar":
         iniciar()
     else:
-        print("Que pena, entao ate a proxima... bye bye\n")
+        print("Obrigado por jogar!\n")
         sys.exit(0)
 
 
 def move():
-    global movimentos
+    global mover
     resultado = False
 
     while not resultado:
         inputValue()
-        movimentos += 1
+        mover += 1
         printResult()
         resultado = validaResultado()
     else:
@@ -205,36 +205,36 @@ def move():
 
 def printResult():
     print("\n")
-    print("Torre A: ", torreA)
-    print("Torre B: ", torreB)
-    print("Torre C: ", torreC)
-    print("Movimentos: ", movimentos)
+    print("Torre 1: ", torre1)
+    print("Torre 2: ", torre2)
+    print("Torre 3: ", torre3)
+    print("mover: ", mover)
 
-    printTorre(torreA, "A")
-    printTorre(torreB, "B")
-    printTorre(torreC, "C")
+    printTorre(torre1, "1")
+    printTorre(torre2, "2")
+    printTorre(torre3, "3")
     print("\n")
 
 
 def iniciar():
-    global ndiscos
-    global iniciarjogo
-    global movimentos
-    global torreA
-    global torreB
-    global torreC
+    global numdiscos
+    global comecar
+    global mover
+    global torre1
+    global torre2
+    global torre3
 
-    ndiscos = 0
-    iniciarjogo = False
-    movimentos = 0
-    torreA = []
-    torreB = []
-    torreC = []
+    numdiscos = 0
+    comecar = False
+    mover = 0
+    torre1 = []
+    torre2 = []
+    torre3 = []
 
     quantDisco()
     init()
 
-    print("\n     PRONTO VAMOS INCIAR O JOGO \n")
+    print("\n------JOGO INICIANDO------\n")
     printResult()
     move()
 
