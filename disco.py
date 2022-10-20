@@ -1,26 +1,26 @@
 class Disco():
 
     def __init__(self):
-        self.ndiscos = 0
-        self.iniciarjogo = False
-        self.movimentos = 0
-        self.torreA = []
-        self.torreB = []
-        self.torreC = []
+        self.numdiscos = 0
+        self.comecar = False
+        self.mover'' = 0
+        self.torre1 = []
+        self.torre2 = []
+        self.torre3 = []
 
     def quantDisco(self):
-        global iniciarjogo
-        global ndiscos
-        ndiscos = 0
-        while (iniciarjogo == False):
-            ctrl = input("\nInforme qual a quantidade de disco: ")
+        global comecar
+        global numdiscos
+        numdiscos = 0
+        while (comecar == False):
+            controle = input("\nDigite o número de discos para o jogo iniciar: ")
             for i in range(100):
-                if ctrl == i.__str__():
-                    ndiscos = ctrl
+                if controle == i.__str__():
+                    numdiscos = controle
 
-            if ndiscos != "" and int(ndiscos) >= 3:
-                iniciarjogo = True
+            if numdiscos != "" and int(numdiscos) >= 3:
+                comecar = True
             else:
-                print("|------>   A quantidade minima de disco para iniciar o jogo deve ser >= 3 discos.")
+                print("A quantidade minima de disco para iniciar o jogo deve ser de 3 discos.")
 
 
